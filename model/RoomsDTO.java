@@ -1,4 +1,4 @@
-package Resources;
+package model;
 
 public class RoomsDTO {
     private int room_no;

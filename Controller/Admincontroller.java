@@ -1,15 +1,16 @@
 package Controller;
-import Resources.AdminDTO;
-import Resources.DoctorDTO;
-import Resources.HospitalDTO;
-import Resources.ReceptionistDTO;
-import models.Adminmodel;
+import DAO.AdminDAO;
+import model.AdminDTO;
+import model.DoctorDTO;
+import model.HospitalDTO;
+import model.ReceptionistDTO;
+import DAO.AdminDAOImpl;
 public class Admincontroller {
 
     private static Admincontroller instance;
+    private AdminDAO admindao=new AdminDAOImpl();
     public static Admincontroller getinstance()
     {
-
         if(instance==null)
         {
             instance=new Admincontroller();
@@ -17,16 +18,16 @@ public class Admincontroller {
         return instance;
     }
 
-    private Admincontroller(){};
+    private Admincontroller(){}
     public  AdminDTO adminlogin(int id, String pass)
     {
-        return Adminmodel.adminlogin(id,pass);
+        return admindao.adminlogin(id,pass);
     }
 
     public  boolean Adddoctor(int id,String pass,String name,String dept,boolean available,String email,String number,int roomid)
     {
         DoctorDTO doctor=new DoctorDTO(id,pass,name,dept,available,email,number,roomid);
-        if(Adminmodel.Adddoctor(doctor))
+        if(admindao.Adddoctor(doctor))
         {
             return true;
         }
@@ -35,7 +36,7 @@ public class Admincontroller {
     public  boolean Addreceptionist(int id,String pass,String shiftingtime,String role,String email,String name,String number)
     {
         ReceptionistDTO receptionist=new ReceptionistDTO(id,pass,shiftingtime,role,email,name,number);
-        if(Adminmodel.Addreceptionist(receptionist))
+        if(admindao.Addreceptionist(receptionist))
         {
             return true;
         }
@@ -45,7 +46,7 @@ public class Admincontroller {
     public boolean Addhospitaldetails(int id,String name,int doc_count,String email,String number,String working_hrs,String address)
     {
         HospitalDTO hospital=new HospitalDTO(id,name,doc_count,email,number,working_hrs,address);
-        if(Adminmodel.Addhospitaldetails(hospital))
+        if(admindao.Addhospitaldetails(hospital))
         {
             return true;
         }

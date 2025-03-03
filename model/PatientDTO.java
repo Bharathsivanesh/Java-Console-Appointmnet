@@ -1,4 +1,4 @@
-package Resources;
+package model;
 
 public class PatientDTO {
     private int pat_id;

@@ -3,9 +3,8 @@ package View;
 import Controller.Appointmentcontroller;
 import Controller.Doctocontroller;
 import Controller.Receptionistcontroller;
-import Resources.AppointmentDTO;
-import Resources.DoctorDTO;
-import Util.Cookie;
+import model.AppointmentDTO;
+import model.DoctorDTO;
 import Util.Input;
 
 import java.util.ArrayList;
@@ -82,6 +81,8 @@ public class ReceptionistView extends Input {
     {
         System.out.println("Enter Reject Appoint_I'D");
         int id=sc.nextInt();
+
+        System.out.println("------------------------------------------------");
         if(Appointmentcontroller.getinstance().rejectappo(id))
         {
             System.out.println("Appointment:"+id+" rejected");
@@ -89,6 +90,8 @@ public class ReceptionistView extends Input {
         else {
             System.out.println("something went wrong");
         }
+
+        System.out.println("------------------------------------------------");
     }
     public static void  checkdocavail()
     {

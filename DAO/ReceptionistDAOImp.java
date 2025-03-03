@@ -1,15 +1,14 @@
-package models;
+package DAO;
 
 import Dbconnectivity.Dbconnect;
-import Resources.DoctorDTO;
-import Resources.ReceptionistDTO;
+import model.ReceptionistDTO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Receptionistmodel {
+public class ReceptionistDAOImp implements ReceptionistDAO {
 
-    public static boolean receptlogin(ReceptionistDTO obj)
+    public  boolean receptlogin(ReceptionistDTO obj)
     {
         try
         {

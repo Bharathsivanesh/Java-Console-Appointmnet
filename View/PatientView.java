@@ -3,13 +3,11 @@ import java.util.*;
 
 import Controller.Doctocontroller;
 import Util.Cookie;
-import Controller.Admincontroller;
 import Controller.Appointmentcontroller;
 import Controller.Patientcontroller;
-import Resources.AppointmentDTO;
-import Resources.DoctorDTO;
+import model.AppointmentDTO;
+import model.DoctorDTO;
 import Util.Input;
-import jdk.jshell.execution.Util;
 
 public class PatientView extends Input {
 
@@ -117,6 +115,7 @@ public static void viewapoointment()
     if(lst.isEmpty())
     {
         System.out.println("No Appointment's Yet");
+        System.out.println("------------------------------------------------");
     }
     else {
         System.out.println("------------------------------------------------");
@@ -130,7 +129,7 @@ public static void viewapoointment()
             System.out.println("Time        : " +appo.getTime());
             System.out.println("Date        : " + appo.getDate());
             System.out.println("Register_Time: " + appo.getRegister_time());
-            System.out.println("Room_ID     : " +appo.getRoom_id());
+            System.out.println("Room_ID     : " +(appo.getRoom_id()==0?"Not Allocated":appo.getRoom_id()));
             System.out.println("------------------------------------------------");
         }
     }

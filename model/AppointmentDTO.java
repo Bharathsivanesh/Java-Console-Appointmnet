@@ -1,4 +1,4 @@
-package Resources;
+package model;
 
 public class AppointmentDTO {
     private int appo_id;

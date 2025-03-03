@@ -1,17 +1,16 @@
-package models;
+package DAO;
 import Dbconnectivity.Dbconnect;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import Dbconnectivity.Dbconnect;
-import Resources.AdminDTO;
-import Resources.DoctorDTO;
-import Resources.HospitalDTO;
-import Resources.ReceptionistDTO;
 
-public class Adminmodel {
-  public static AdminDTO adminlogin(int I_D, String pass)
+import model.AdminDTO;
+import model.DoctorDTO;
+import model.HospitalDTO;
+import model.ReceptionistDTO;
+
+public class AdminDAOImpl implements AdminDAO{
+    public AdminDTO adminlogin(int I_D, String pass)
   {
       String query="select * from admin where I_D=? AND pass=? ";
       try{
@@ -40,7 +39,7 @@ public class Adminmodel {
 
   }
 
-  public static boolean Adddoctor(DoctorDTO doctor)
+  public  boolean Adddoctor(DoctorDTO doctor)
 
   {
 
@@ -67,7 +66,7 @@ public class Adminmodel {
        }
       return false;
   }
-  public static boolean Addreceptionist(ReceptionistDTO receptionist)
+  public  boolean Addreceptionist(ReceptionistDTO receptionist)
   {
       String query = "INSERT INTO receptionist VALUES (?, ?, ?, ?, ?, ?, ?)";
       try
@@ -87,7 +86,7 @@ public class Adminmodel {
 
       return false;
   }
-  public static boolean Addhospitaldetails(HospitalDTO hospital)
+  public  boolean Addhospitaldetails(HospitalDTO hospital)
   {
       String query = "INSERT INTO hospital VALUES (?, ?, ?, ?, ?, ?, ?)";
       try

@@ -1,14 +1,14 @@
-package models;
+package DAO;
 
 import Dbconnectivity.Dbconnect;
-import Resources.PatientDTO;
+import model.PatientDTO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Patientmodel {
+public class PatientDAOImpl implements PatientDAO {
 
-    public static boolean Patientregister(PatientDTO patient)
+    public  boolean Patientregister(PatientDTO patient)
     {
         String query="insert into patient values (?,?,?,?,?,?,?)";
         try
@@ -31,7 +31,7 @@ public class Patientmodel {
         }
         return false;
     }
-    public static boolean Patientlogin(PatientDTO patient)
+    public  boolean Patientlogin(PatientDTO patient)
     {
         try {
             int id=patient.getPat_id();

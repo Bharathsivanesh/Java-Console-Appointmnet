@@ -1,14 +1,13 @@
 package Controller;
 
-import Resources.DoctorDTO;
-import Resources.PatientDTO;
-import models.Doctormodel;
-import models.Patientmodel;
-import java.util.*;
+import DAO.PatientDAO;
+import model.PatientDTO;
+import DAO.PatientDAOImpl;
 
 public class Patientcontroller {
 
     private static Patientcontroller instance;
+    private PatientDAO patientobj=new PatientDAOImpl();
 
     private Patientcontroller(){};
 
@@ -22,14 +21,13 @@ public class Patientcontroller {
     }
     public boolean Patientregister(int id,String pass,String email,int age,String gender,String phone,String blood_group)
     {
-
         PatientDTO patient=new PatientDTO(id,pass,email,age,gender,phone,blood_group);
-        return Patientmodel.Patientregister(patient);
+        return patientobj.Patientregister(patient);
     }
     public  boolean Patientlogin(int id,String pass)
     {
         PatientDTO patient=new PatientDTO(id,pass);
-        return Patientmodel.Patientlogin(patient);
+        return patientobj.Patientlogin(patient);
     }
 
 

@@ -1,10 +1,7 @@
 package View;
 import Controller.Admincontroller;
-import Resources.AdminDTO;
+import model.AdminDTO;
 import Util.Input;
-import models.Adminmodel;
-
-import java.util.Scanner;
 
 public class Adminview extends Input {
     public static void showlogin()

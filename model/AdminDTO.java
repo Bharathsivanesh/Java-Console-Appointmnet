@@ -1,4 +1,4 @@
-package Resources;
+package model;
 
 public class AdminDTO {
     private int id;

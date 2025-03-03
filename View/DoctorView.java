@@ -2,7 +2,7 @@ package View;
 
 import Controller.Appointmentcontroller;
 import Controller.Doctocontroller;
-import Resources.AppointmentDTO;
+import model.AppointmentDTO;
 import Util.Cookie;
 import Util.Input;
 
@@ -56,7 +56,9 @@ public class DoctorView extends Input {
     {
         if(Doctocontroller.getinstance().updatedocavilability(Cookie.getinstance().getter_docid()))
         {
+            System.out.println("------------------------------------------------");
             System.out.println("Availability Updated");
+            System.out.println("------------------------------------------------");
         }
         else
         {
@@ -84,7 +86,7 @@ public class DoctorView extends Input {
                 System.out.println("Appointment_Time:"+obj.getTime());
                 System.out.println("Appointment_Date:"+obj.getDate());
                 System.out.println("Appointment_room:"+(obj.getRoom_id()==0?"Not Allocated":obj.getRoom_id()));
-                System.out.println("Appo_registerTime"+obj.getRegister_time());
+                System.out.println("Appo_registerTime:"+obj.getRegister_time());
                 System.out.println("--------------------------------------");
             }
         }

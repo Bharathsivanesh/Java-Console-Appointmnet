@@ -1,17 +1,14 @@
-package models;
-import java.security.spec.ECField;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+package DAO;
 import Dbconnectivity.Dbconnect;
-import Resources.AppointmentDTO;
+import model.AppointmentDTO;
 import Util.Cookie;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
-public class Apoointmentmodel {
+public class ApointmentDAOImpl implements AppointmentDAO{
 
-    public static List<AppointmentDTO>getappointment()
+    public  List<AppointmentDTO>getappointment()
     {
         List<AppointmentDTO>lst=new ArrayList<>();
         try
@@ -42,7 +39,7 @@ public class Apoointmentmodel {
         };
         return lst;
     }
-    public static boolean setappointment(AppointmentDTO obj)
+    public  boolean setappointment(AppointmentDTO obj)
     {
         try
         {
@@ -64,10 +61,10 @@ public class Apoointmentmodel {
             System.out.println(e.getMessage());
             System.out.println("Errro in db");
         };
-        return false;
+        return false;   
     }
 
-    public static ArrayList<AppointmentDTO> getdocappointment(int id)
+    public ArrayList<AppointmentDTO> getappointment(int id)
     {
         ArrayList<AppointmentDTO>obj=new ArrayList<>();
         try{
@@ -92,7 +89,7 @@ public class Apoointmentmodel {
     }
 
 
-    public static ArrayList<AppointmentDTO>getallappointment()
+    public  ArrayList<AppointmentDTO>getallappointment()
     {
         ArrayList<AppointmentDTO>lst=new ArrayList<>();
         try
@@ -123,7 +120,7 @@ public class Apoointmentmodel {
         return lst;
     }
 
-    public static boolean rejectappo(int appo_id)
+    public  boolean rejectappo(int appo_id)
     {
         try{
             String query="update appointments set appo_status= 'Rejected' where appo_id=?";
@@ -138,7 +135,7 @@ public class Apoointmentmodel {
         }
         return false;
     }
-    public static boolean makeschedule(AppointmentDTO obj)
+    public  boolean makeschedule(AppointmentDTO obj)
     {
       try{
           String query = "UPDATE appointments SET appo_status=?, room_id=? WHERE appo_status='Not Viewed' AND time=? AND date=? AND doc_id=? AND pat_id=?";
@@ -158,6 +155,27 @@ public class Apoointmentmodel {
           System.out.println(e.getMessage());
       }
       return false;
+    }
+
+        public int getdoctorroom_id(int doc_id)
+    {
+        try
+        {
+            String query="select room_id from doctor where id=?";
+            PreparedStatement ps=Dbconnect.getInstance().getConnection().prepareStatement(query);
+            ps.setInt(1,doc_id);
+            ResultSet st=ps.executeQuery();
+            if(st.next())
+            {
+                return st.getInt("room_id");
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return 0;
     }
 
 }

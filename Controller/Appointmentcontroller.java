@@ -3,13 +3,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import Resources.AppointmentDTO;
-import Resources.DoctorDTO;
-import models.Apoointmentmodel;
-import models.Doctormodel;
+import DAO.AppointmentDAO;
+import model.AppointmentDTO;
+import DAO.ApointmentDAOImpl;
+import DAO.DoctorDAOImpl;
 
 public class Appointmentcontroller {
     private static Appointmentcontroller instance;
+    private AppointmentDAO appoobj=new ApointmentDAOImpl();
     private Appointmentcontroller(){};
     public static Appointmentcontroller getinstance()
     {
@@ -22,34 +23,32 @@ public class Appointmentcontroller {
 
 
     public boolean setappointment(int doc_id,int pat_id,String status,String time,String date,int room_id)
-
     {
         String currentTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
          AppointmentDTO obj=new AppointmentDTO(doc_id,pat_id,status,time,date,room_id,currentTime);
-         return Apoointmentmodel.setappointment(obj);
+         return appoobj.setappointment(obj);
     }
-
     public List<AppointmentDTO> getappointmentdetails()
     {
-        return Apoointmentmodel.getappointment();
+        return appoobj.getappointment();
     }
     public ArrayList<AppointmentDTO> getdocappointment(int doc_id)
     {
-        return Apoointmentmodel.getdocappointment(doc_id);
+        return appoobj.getappointment(doc_id);
     }
     public ArrayList<AppointmentDTO> getdocappointment()
     {
-        return Apoointmentmodel.getallappointment();
+        return appoobj.getallappointment();
     }
 
     public boolean rejectappo(int appo_id)
     {
-        return Apoointmentmodel.rejectappo(appo_id);
+        return appoobj.rejectappo(appo_id);
     }
     public boolean makeschedule(int doc_id,int pat_id,String time,String date)
     {
-        int room_id=Doctormodel.getdoctorroom_id(doc_id);
+        int room_id= appoobj.getdoctorroom_id(doc_id);
         AppointmentDTO obj=new AppointmentDTO(doc_id,pat_id,"ACCEPTED",time,date,room_id);
-        return Apoointmentmodel.makeschedule(obj);
+        return appoobj.makeschedule(obj);
     }
 }

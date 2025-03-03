@@ -1,4 +1,4 @@
-package Resources;
+package model;
 
 public class DoctorDTO {
     private int id;

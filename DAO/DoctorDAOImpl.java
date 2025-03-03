@@ -1,16 +1,14 @@
-package models;
+package DAO;
 
 import Dbconnectivity.Dbconnect;
-import Resources.AppointmentDTO;
-import Resources.DoctorDTO;
+import model.DoctorDTO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
-public class Doctormodel {
+public class DoctorDAOImpl  implements DoctorDAO{
 
-    public static List<DoctorDTO> getdoctordetails()  {
+    public  List<DoctorDTO> getdoctordetails()  {
         List<DoctorDTO>lst=new ArrayList<>();
         try {
             String query = "select * from doctor";
@@ -36,7 +34,7 @@ public class Doctormodel {
         catch (Exception e){};
         return lst;
     }
-    public static boolean doctorlogin(DoctorDTO obj)
+    public  boolean doctorlogin(DoctorDTO obj)
     {
         try
         {
@@ -54,7 +52,7 @@ public class Doctormodel {
         return false;
     }
 
-    public static boolean updatedocavailability(int doc_id)
+    public  boolean updatedocavailability(int doc_id)
     {
         try{
             String query="update doctor set available=NOT available where id=?";
@@ -74,26 +72,7 @@ public class Doctormodel {
         return false;
     }
 
-    public static int getdoctorroom_id(int doc_id)
-    {
-        try
-        {
-            String query="select room_id from doctor where id=?";
-            PreparedStatement ps=Dbconnect.getInstance().getConnection().prepareStatement(query);
-            ps.setInt(1,doc_id);
-            ResultSet st=ps.executeQuery();
-            if(st.next())
-            {
-                return st.getInt("room_id");
-            }
-            
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
+
 
 
 

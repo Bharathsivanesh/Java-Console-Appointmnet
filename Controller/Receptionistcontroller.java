@@ -1,14 +1,13 @@
 package Controller;
 
-import Resources.PatientDTO;
-import Resources.ReceptionistDTO;
-import models.Patientmodel;
-import models.Receptionistmodel;
+import DAO.ReceptionistDAO;
+import model.ReceptionistDTO;
+import DAO.ReceptionistDAOImp;
 
 public class Receptionistcontroller {
 
     private static Receptionistcontroller instance;
-
+   private ReceptionistDAO recepobj=new ReceptionistDAOImp();
     private Receptionistcontroller(){};
 
     public static Receptionistcontroller getInstance()
@@ -23,7 +22,7 @@ public class Receptionistcontroller {
     public  boolean receptlogin(int id,String pass)
     {
         ReceptionistDTO recep=new ReceptionistDTO(id,pass);
-        return Receptionistmodel.receptlogin(recep);
+        return recepobj.receptlogin(recep);
     }
 
 }

@@ -57,7 +57,7 @@ public class DoctorView extends Input {
         if(Doctocontroller.getinstance().updatedocavilability(Cookie.getinstance().getter_docid()))
         {
             System.out.println("------------------------------------------------");
-            System.out.println("Availability Updated");
+            System.out.println("Availability Updated sucessfully");
             System.out.println("------------------------------------------------");
         }
         else

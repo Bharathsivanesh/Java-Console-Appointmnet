@@ -74,5 +74,5 @@ A **Java Console Application** for booking and managing doctor appointments. Thi
 
 1. **Clone the Repo**
    ```bash
-   git clone https://github.com/your-username/DoctorAppointment.git
+   git clone https://github.com/Bharathsivanesh/Java-Console-Appointmnet.git
    cd DoctorAppointment

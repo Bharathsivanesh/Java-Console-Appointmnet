@@ -6,31 +6,28 @@ import Controller.Receptionistcontroller;
 import model.AppointmentDTO;
 import model.DoctorDTO;
 import Util.Input;
-
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReceptionistView extends Input {
 
-    public static void login()
-    {
-        System.out.println("Enter Your I'D");
-        int id=sc.nextInt();
-        System.out.println("Enter Your Password");
-        String pass=sc.next();
-        if(Receptionistcontroller.getInstance().receptlogin(id,pass))
-        {
-            System.out.println("Sucessfully Logged-In");
-            while(true)
-            {
-                System.out.println("1)View Doctors Availability");
-                System.out.println("2)View All Appointments");
-                System.out.println("3)Make Schedule");
-                System.out.println("4)Reject Schedule");
-                System.out.println("5)Log-out");
-                int n=sc.nextInt();
-                switch (n)
-                {
+    public static void login() {
+        int id = getValidInt("Enter Your ID: ");
+        System.out.print("Enter Your Password: ");
+        String pass = sc.next();
+
+        if (Receptionistcontroller.getInstance().receptlogin(id, pass)) {
+            System.out.println("Successfully Logged-In");
+            while (true) {
+                System.out.println("1) View Doctors Availability");
+                System.out.println("2) View All Appointments");
+                System.out.println("3) Make Schedule");
+                System.out.println("4) Reject Schedule");
+                System.out.println("5) Log-out");
+                int n = getValidInt("Choose an option (1-5): ");
+
+                switch (n) {
                     case 1:
                         checkdocavail();
                         break;
@@ -46,97 +43,113 @@ public class ReceptionistView extends Input {
                     case 5:
                         return;
                     default:
-                        System.out.println("Enter Valid No");
-                       break;
-
+                        System.out.println("Enter Valid Number Between 1 and 5");
+                        break;
                 }
             }
-
-        }
-        else
-        {
-            System.out.println("Invalid I'D");
+        } else {
+            System.out.println("Invalid ID or Password");
         }
     }
 
-    public static void scheduleappo()
-    {
-        System.out.println("Enter Doc_Id");
-        int doc_id=sc.nextInt();
-        System.out.println("Enter Pat_id");
-        int pat_id=sc.nextInt();
-        System.out.println("Enter Time");
-        String time=sc.next();
-        System.out.println("Enter Date");
-        String  date=sc.next();
-        if(Appointmentcontroller.getinstance().makeschedule(doc_id,pat_id,time,date))
-        {
-            System.out.println("Sucessfully Scheduled");
-        }
-        else {
+    public static void scheduleappo() {
+        int doc_id = getValidInt("Enter Doctor ID: ");
+        int pat_id = getValidInt("Enter Patient ID: ");
+        String time = getValidTime("Enter Time (e.g. 9AM-5PM): ");
+        String date = getValidDate("Enter Date (YYYY-MM-DD): ");
+
+        if (Appointmentcontroller.getinstance().makeschedule(doc_id, pat_id, time, date)) {
+            System.out.println("Successfully Scheduled");
+        } else {
             System.out.println("Something went wrong");
         }
     }
-    public static void  rejectappointment()
-    {
-        System.out.println("Enter Reject Appoint_I'D");
-        int id=sc.nextInt();
 
+    public static void rejectappointment() {
+        int id = getValidInt("Enter Appointment ID to Reject: ");
         System.out.println("------------------------------------------------");
-        if(Appointmentcontroller.getinstance().rejectappo(id))
-        {
-            System.out.println("Appointment:"+id+" rejected");
+        if (Appointmentcontroller.getinstance().rejectappo(id)) {
+            System.out.println("Appointment: " + id + " rejected");
+        } else {
+            System.out.println("Something went wrong");
         }
-        else {
-            System.out.println("something went wrong");
-        }
-
         System.out.println("------------------------------------------------");
     }
-    public static void  checkdocavail()
-    {
-        List<DoctorDTO> lst= Doctocontroller.getinstance().getdoctor();
-        if(lst.isEmpty())
-        {
+
+    public static void checkdocavail() {
+        List<DoctorDTO> lst = Doctocontroller.getinstance().getdoctor();
+        if (lst.isEmpty()) {
             System.out.println("No Doctor available");
-        }
-        else
-        {
+        } else {
             System.out.println("------------------------------------------------");
-            System.out.println("Checking Doctor Avilability");
-            for (DoctorDTO doctors : lst)
-            {
+            System.out.println("Checking Doctor Availability");
+            for (DoctorDTO doctors : lst) {
                 System.out.println("Doctor ID      : " + doctors.getId());
                 System.out.println("Available      : " + (doctors.isAvailable() ? "Yes" : "No"));
                 System.out.println("------------------------------------------------");
             }
         }
-
     }
-    public static void  viewappointment()
-    {
-        ArrayList<AppointmentDTO> lst= Appointmentcontroller.getinstance().getdocappointment();
+
+    public static void viewappointment() {
+        ArrayList<AppointmentDTO> lst = Appointmentcontroller.getinstance().getdocappointment();
         System.out.println("--------------------------------------");
-        if(lst.size()==0)
-        {
-            System.out.println("No Appointment Yet");
-            System.out.println("--------------------------------------");
-        }
-        else {
-            for(AppointmentDTO obj:lst)
-            {
+        if (lst.isEmpty()) {
+            System.out.println("No Appointments Yet");
+        } else {
+            for (AppointmentDTO obj : lst) {
                 System.out.println("--------------------------------------");
-                System.out.println("Appointment I'D :"+obj.getAppo_id());
-                System.out.println("Doctor_Id       :"+obj.getDoc_id());
-                System.out.println("Patient_Id      :"+obj.getPat_id());
-                System.out.println("Appointment_status:"+obj.isAppo_status());
-                System.out.println("Appointment_Time:"+obj.getTime());
-                System.out.println("Appointment_Date:"+obj.getDate());
-                System.out.println("Appointment_room:"+(obj.getRoom_id()==0?"Not Allocated":obj.getRoom_id()));
-                System.out.println("Appotment_registertime"+obj.getRegister_time());
+                System.out.println("Appointment ID         : " + obj.getAppo_id());
+                System.out.println("Doctor ID              : " + obj.getDoc_id());
+                System.out.println("Patient ID             : " + obj.getPat_id());
+                System.out.println("Appointment Status     : " + obj.isAppo_status());
+                System.out.println("Appointment Time       : " + obj.getTime());
+                System.out.println("Appointment Date       : " + obj.getDate());
+                System.out.println("Appointment Room       : " + (obj.getRoom_id() == 0 ? "Not Allocated" : obj.getRoom_id()));
+                System.out.println("Appointment Register Time: " + obj.getRegister_time());
                 System.out.println("--------------------------------------");
             }
         }
     }
 
+//    helper validation methods
+
+    public static int getValidInt(String message) {
+        System.out.println(message);
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid number. " + message);
+            sc.next(); // discard invalid input
+        }
+        return sc.nextInt();
+    }
+
+    public static String getValidString(String message) {
+        System.out.println(message);
+        String input = sc.next();
+        while (input.trim().isEmpty() || input.matches("\\d+")) {
+            System.out.println("Invalid input. Only letters allowed. " + message);
+            input = sc.next();
+        }
+        return input;
+    }
+
+    public static String getValidTime(String message) {
+        System.out.println(message);
+        String time = sc.next();
+        while (!Pattern.matches("^(0?[1-9]|1[0-2])[APap][Mm]-(0?[1-9]|1[0-2])[APap][Mm]$", time)) {
+            System.out.println("Invalid time format. Format should be like 9AM-5PM. " + message);
+            time = sc.next();
+        }
+        return time.toUpperCase();
+    }
+
+    public static String getValidDate(String message) {
+        System.out.println(message);
+        String date = sc.next();
+        while (!Pattern.matches("^\\d{4}-\\d{2}-\\d{2}$", date)) {
+            System.out.println("Invalid date format. Format should be YYYY-MM-DD. " + message);
+            date = sc.next();
+        }
+        return date;
+    }
 }

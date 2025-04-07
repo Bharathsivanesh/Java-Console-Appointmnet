@@ -33,7 +33,7 @@ public class HospitalDTO {
         return total_doctor;
     }
 
-    public String getEmail() {
+    public String getEmail  () {
         return email;
     }
 
